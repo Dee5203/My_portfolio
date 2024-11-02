@@ -1,10 +1,32 @@
+const phrases = ["Web Developer", "Frontend Designer"];
+let currentPhraseIndex = 0;
+let currentLetterIndex = 0;
+let isDeleting = false;
+const typingSpeed = 100;
 
+function type() {
+  const typingTextElement = document.getElementById("typingText");
+  const currentPhrase = phrases[currentPhraseIndex];
 
+  if (isDeleting) {
+    typingTextElement.textContent = currentPhrase.substring(0, currentLetterIndex--);
+  } else {
+    typingTextElement.textContent = currentPhrase.substring(0, currentLetterIndex++);
+  }
 
+  if (!isDeleting && currentLetterIndex === currentPhrase.length) {
+    isDeleting = true;
+    setTimeout(type, 800);
+  } else if (isDeleting && currentLetterIndex === 0) {
+    isDeleting = false;
+    currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
+    setTimeout(type, typingSpeed);
+  } else {
+    setTimeout(type, typingSpeed);
+  }
+}
 
-
-
-
+type();
 
 
 let menuIcon=document.querySelector('#menu-icon');
@@ -34,4 +56,4 @@ menuIcon.onclick=()=> {
             navbar.classList.toggle('active');
 } 
 
-            // Select elements
+            
