@@ -56,4 +56,20 @@ menuIcon.onclick=()=> {
             navbar.classList.toggle('active');
 } 
 
-            
+
+emailjs.init('wlvtNilpBd6ROJCx1'); // Replace 'your_public_key' with your actual Public Key
+
+document.getElementById('contact-form').addEventListener('submit', function (e) {
+  e.preventDefault(); // Prevent the default form submission
+
+  // Use the correct Service ID and Template ID
+  emailjs.sendForm('service_54sf2f1', 'template_v30zahg', this)
+      .then(() => {
+          alert('Message sent successfully!');
+          this.reset(); // Reset the form after submission
+      })
+      .catch((error) => {
+          console.error('Error sending email:', error);
+          alert('Failed to send message. Please try again.');
+      });
+});
