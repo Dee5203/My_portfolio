@@ -57,7 +57,7 @@ menuIcon.onclick=()=> {
 } 
 
 
-emailjs.init('wlvtNilpBd6ROJCx1'); // Replace 'your_public_key' with your actual Public Key
+/*mailjs.init('wlvtNilpBd6ROJCx1'); // Replace 'your_public_key' with your actual Public Key
 
 document.getElementById('contact-form').addEventListener('submit', function (e) {
   e.preventDefault(); // Prevent the default form submission
@@ -71,5 +71,29 @@ document.getElementById('contact-form').addEventListener('submit', function (e) 
       .catch((error) => {
           console.error('Error sending email:', error);
           alert('Failed to send message. Please try again.');
+      });
+});*/
+
+document.getElementById("contact-form").addEventListener("submit", function (e) {
+  e.preventDefault(); // Prevent the default form submission
+
+  const form = this;
+
+  // Submit the form using fetch
+  fetch(form.action, {
+      method: form.method,
+      body: new FormData(form),
+  })
+      .then(response => {
+          if (response.ok) {
+              alert("Message sent successfully!");
+              form.reset(); // Reset the form fields
+          } else {
+              alert("Failed to send the message. Please try again.");
+          }
+      })
+      .catch(error => {
+          console.error("Error:", error);
+          alert("Failed to send the message. Please try again.");
       });
 });
